@@ -43,35 +43,51 @@ class InventoryItem(object):
         self.image = self.find_image()
 
 
+@dataclass
+class Details(object):
+    """Store sheet details."""
+
+    host: str
+    template_name: str
+
+
 class Inventory(object):
     """Inventory object containing inventory items."""
 
     def __init__(self, inventory_name: str, image_folder_filepath: str):
-        self.db = pd.read_excel(inventory_name)
+        self.inventory_name = inventory_name
         self.inventory = {}
         self.image_folder_filepath = image_folder_filepath
         self.fill_inventory_dict()
+
+    def make_inventory_dataframe(self) -> Any:
+        """Write inventory items to pandas dataframe."""
+        return pd.read_excel(self.inventory_name, sheet_name='Order')
 
     def add_inventory_item(self, item: Any) -> Any:
         """Add Inventory_Item to to inventory."""
         name = item.name
         self.inventory[name] = item
 
-    def read_from_inventory_database(self, name: str) -> tuple:
+    def get_item_parameters_from_dataframe(self, name: str) -> tuple:
         """Return parameters of Inventory_Item object."""
-        db_item = self.db[self.db["Artikel"] == name]
+        inventory_df = self.make_inventory_dataframe()
+        db_item = inventory_df[inventory_df["Artikel"] == name]
         price = float(db_item["Prijs"])
         profit = float(db_item["Winstmarge"])
         number = int(db_item["Geleverd"])
         return name, price, profit, number
 
+    def make_inventory_item(self, item_parameters: tuple) -> InventoryItem:
+        """make InventoryItem object."""
+        name, price, profit, number = item_parameters
+        return InventoryItem(name, price, profit, number, self.image_folder_filepath)
+
     def fill_inventory_dict(self) -> None:
-        """Fill inventory dictionary with items from database."""
-        for n in self.db["Artikel"]:
-            name, price, profit, number = self.read_from_inventory_database(n)
-            item = InventoryItem(
-                name, price, profit, number, self.image_folder_filepath
-            )
+        """Fill inventory dictionary with items from dataframe."""
+        for n in self.get_item_names:
+            item_parameters = self.get_item_parameters_from_dataframe(n)
+            item = self.make_inventory_item(item_parameters)
             item.set_image()
             self.add_inventory_item(item)
 
@@ -80,10 +96,8 @@ class Inventory(object):
         """Return inventory dictionary."""
         return self.inventory
 
-
-if __name__ == "__main__":
-    images_filepath = "./images"
-    inventory_name = "Bestelbon.xlsx"
-    inventory_items = Inventory(inventory_name, images_filepath)
-    # Inventory.fill_inventory_dict()
-    inventary_dict = inventory_items.get_inventory_dict
+    @property
+    def get_item_names(self):
+        """Get names from inventory items."""
+        return self.make_inventory_dataframe()["Artikel"]
+        
