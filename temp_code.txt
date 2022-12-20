@@ -1,0 +1,50 @@
+# def find_image(self, images_path:str):
+#     '''finds name-like image in images folder'''
+#     images = listdir(images_path)
+#     name = self.name.lower().replace(' ', '')
+#     for im in images:
+#         im_name = im.lower().replace(' ', '')
+#         if name in im_name:
+#             self.image = im
+
+# class Write_Sheet(object):
+#     def __init__(self, inventory):
+#         self.inventory = inventory
+#         self.write_document()
+    
+#     def write_document(self):
+#         document = Document('template.docx')
+#         length = len(self.inventory) + 1
+#         table = document.add_table(rows=length, cols=5)
+        
+#         # Adding heading in the 1st row of the table
+#         header = table.rows[0].cells
+#         header[0].text = 'Artikel'
+#         header[1].text = 'Prijs'
+#         header[2].text = 'Winstmarge'
+#         header[3].text = 'Geleverd'
+#         header[4].text = 'Verkocht'
+    
+#         # Filling in table
+#         for i in range(1, len(self.inventory) + 1):
+#             name = list(self.inventory.keys())[i-1]
+#             item = self.inventory[name]
+            
+#             row = table.rows[i].cells
+#             row[0].text = item.name
+#             paragraph = row[0].paragraphs[0]
+#             run = paragraph.add_run()
+#             try:
+#                 run.add_picture('./images/' + self.inventory[name].image, width=Cm(2))
+            
+#             except PermissionError as e:
+#                 row[0].text += '\n \n no image was found \n'
+            
+#             row[1].text = '€ ' + f"{item.price:.2f}"
+#             row[2].text = '€ ' + f"{item.profit:.2f}"
+#             row[3].text = str(item.number)
+            
+    
+    
+#         table.style = 'Plain Table 1'
+#         document.save('Bestelbon.docx')
