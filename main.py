@@ -18,8 +18,11 @@ images_filepath = "./images"
 inventory_name = "Bestelbon.xlsx"
 
 # make Inventory object
-inventory = Inventory(inventory_name, images_filepath).get_inventory_dict
+inventory = Inventory(inventory_name, images_filepath)
+template_name = inventory.details.template_name
+inventory_dict = inventory.get_inventory_dict
+# inventory = Inventory(inventory_name, images_filepath).get_inventory_dict
 
 # write purchase sheet
-purchase_sheet = Purchase_Sheet(inventory)
-purchase_sheet.create("Bestelbon.docx", "template.docx")
+purchase_sheet = Purchase_Sheet(inventory_dict)
+purchase_sheet.create("Bestelbon.docx", template_name)

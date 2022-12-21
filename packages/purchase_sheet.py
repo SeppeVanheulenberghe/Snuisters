@@ -41,7 +41,8 @@ class Purchase_Sheet(object):
             paragraph = row[0].paragraphs[0]
             run = paragraph.add_run()
             try:
-                run.add_picture("./images/" + self.inventory[name].image, width=Cm(2))
+                run.add_picture(
+                    "./images/" + self.inventory[name].image, width=Cm(2))
 
             except TypeError:
                 row[0].text += "\n\nimage not found\n"
@@ -58,8 +59,8 @@ class Purchase_Sheet(object):
         self, doc_name: str, template_name: str, table_style: str = "Plain Table 1"
     ) -> None:
         """Create purchase sheet document."""
-        templates_dir = 'templates/' 
-        self.open_doc(templates_dir + template_name)
+        templates_dir = 'templates/'
+        self.open_doc(templates_dir + template_name + '.docx')
         rows, cols = len(self.inventory) + 1, 5
         self.make_doc_table(rows, cols)
         labels = ["Artikel", "Prijs", "Winstmarge", "Geleverd", "Verkocht"]
