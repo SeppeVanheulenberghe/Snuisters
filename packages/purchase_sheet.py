@@ -9,14 +9,15 @@ from docx import Document
 from docx.shared import Cm
 from typing import List
 from packages.inventory import Inventory
+from abc import ABC, abstractmethod
 
 
-class Purchase_Sheet(object):
+class Purchase_Sheet(ABC):
     """Responsible for writing the purchase sheets docx."""
 
     def __init__(self, inventory: Inventory):
         self.inventory = inventory
-        self.inventory_dict = inventory.get_inventory_dict
+        self.inventory_AllItems = inventory.AllItems
         self.inventory_details = inventory.details
 
     def open_doc(self, template_name: str) -> None:
@@ -57,9 +58,9 @@ class Purchase_Sheet(object):
 
     def fill_table(self) -> None:
         """Fill in table with inventory items."""
-        for i in range(1, len(self.inventory_dict) + 1):
-            name = list(self.inventory_dict.keys())[i - 1]
-            item = self.inventory_dict[name]
+        for i in range(1, len(self.inventory_AllItems) + 1):
+            name = list(self.inventory_AllItems.keys())[i - 1]
+            item = self.inventory_AllItems[name]
 
             row = self.table.rows[i].cells
             row[0].text = item.name
@@ -67,7 +68,7 @@ class Purchase_Sheet(object):
             run = paragraph.add_run()
             try:
                 run.add_picture(
-                    "./images/" + self.inventory_dict[name].image, width=Cm(2))
+                    "./images/" + self.inventory_AllItems[name].image, width=Cm(2))
 
             except TypeError:
                 row[0].text += "\n\nimage not found\n"
@@ -85,6 +86,14 @@ class Purchase_Sheet(object):
         """Set the table style of the purchase sheet."""
         self.table.style = style
 
+    @abstractmethod
+    def create(
+        self, doc_name: str, template_name: str, table_style: str = "Plain Table 1"
+    ) -> None:
+        """Create purchase sheet document."""
+
+
+class Snuisters_Purchase_Sheet(Purchase_Sheet):
     def create(
         self, doc_name: str, template_name: str, table_style: str = "Plain Table 1"
     ) -> None:
@@ -95,7 +104,7 @@ class Purchase_Sheet(object):
         # adding details about inventory
         self.make_details_paragraph()
         # making table for inventory items
-        rows, cols = len(self.inventory_dict) + 1, 5
+        rows, cols = len(self.inventory_AllItems) + 1, 5
         self.make_doc_table(rows, cols)
         labels = ["Artikel", "Prijs", "Winstmarge", "Geleverd", "Verkocht"]
         self.fill_table_header(labels)

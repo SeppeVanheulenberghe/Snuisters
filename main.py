@@ -11,7 +11,7 @@ with items imported from a database (.xlsx)
 """
 
 from packages.inventory import Inventory
-from packages.purchase_sheet import Purchase_Sheet
+from packages.purchase_sheet import Snuisters_Purchase_Sheet
 
 
 images_filepath = "./images"
@@ -20,8 +20,8 @@ inventory_name = "Bestelbon.xlsx"
 # make Inventory object
 inventory = Inventory(inventory_name, images_filepath)
 template_name = inventory.details.template_name
-inventory_dict = inventory.get_inventory_dict
+inventory_dict = inventory.AllItems
 
 # write purchase sheet
-purchase_sheet = Purchase_Sheet(inventory)
+purchase_sheet = Snuisters_Purchase_Sheet(inventory)
 purchase_sheet.create("Bestelbon.docx", template_name)

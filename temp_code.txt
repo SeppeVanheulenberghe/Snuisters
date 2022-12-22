@@ -48,3 +48,22 @@
     
 #         table.style = 'Plain Table 1'
 #         document.save('Bestelbon.docx')
+
+# # make this into abstract class and add new class specifically for Snuisters
+    # def create(
+    #     self, doc_name: str, template_name: str, table_style: str = "Plain Table 1"
+    # ) -> None:
+    #     """Create purchase sheet document."""
+    #     # opening new document
+    #     templates_dir = 'templates/'
+    #     self.open_doc(templates_dir + template_name + '.docx')
+    #     # adding details about inventory
+    #     self.make_details_paragraph()
+    #     # making table for inventory items
+    #     rows, cols = len(self.inventory_AllItems) + 1, 5
+    #     self.make_doc_table(rows, cols)
+    #     labels = ["Artikel", "Prijs", "Winstmarge", "Geleverd", "Verkocht"]
+    #     self.fill_table_header(labels)
+    #     self.fill_table()
+    #     self.set_table_style(table_style)
+    #     self.doc.save(doc_name)
