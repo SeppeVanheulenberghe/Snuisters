@@ -23,5 +23,6 @@ template_name = inventory.details.template_name
 inventory_dict = inventory.AllItems
 
 # write purchase sheet
+purchase_sheet_name = inventory.details.purchase_sheet_name
 purchase_sheet = Snuisters_Purchase_Sheet(inventory)
-purchase_sheet.create("Bestelbon.docx", template_name)
+purchase_sheet.create(purchase_sheet_name, template_name)

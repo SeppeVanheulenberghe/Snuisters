@@ -49,6 +49,7 @@ class Details(object):
 
     host: str
     template_name: str
+    purchase_sheet_name: str
 
 
 class Inventory(object):
@@ -84,7 +85,8 @@ class Inventory(object):
         details_df = self.read_inventory_details_from_excel()
         host = details_df['Ontvanger'].item()
         template_name = details_df['Template'].item()
-        return host, template_name
+        purchase_sheet_name = details_df['Documentnaam'].item()
+        return host, template_name, purchase_sheet_name
 
     def make_inventory_item(self, item_parameters: tuple) -> InventoryItem:
         """Make InventoryItem object."""
@@ -93,8 +95,8 @@ class Inventory(object):
 
     def make_inventory_details(self, details: tuple) -> Details:
         """Make details object."""
-        host, template_name = details
-        return Details(host, template_name)
+        host, template_name, purchase_sheet_name = details
+        return Details(host, template_name, purchase_sheet_name)
 
     def add_inventory_item(self, item: InventoryItem) -> Any:
         """Add Inventory_Item to to inventory."""

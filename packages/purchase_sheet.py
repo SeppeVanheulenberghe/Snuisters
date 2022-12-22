@@ -110,4 +110,4 @@ class Snuisters_Purchase_Sheet(Purchase_Sheet):
         self.fill_table_header(labels)
         self.fill_table()
         self.set_table_style(table_style)
-        self.doc.save(doc_name)
+        self.doc.save(doc_name + '.docx')
