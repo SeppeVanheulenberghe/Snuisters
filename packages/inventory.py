@@ -79,7 +79,6 @@ class Inventory(object):
         number = int(db_item["Geleverd"])
         return item_name, price, profit, number
 
-    # make it independent of the class variables
     def get_inventory_details(self):
         """Return details from details-sheet dataframe."""
         details_df = self.read_inventory_details_from_excel()
@@ -103,7 +102,6 @@ class Inventory(object):
         name = item.name
         self.inventory[name] = item
 
-    # make it less dependent of class variables
     def store_AllItems_in_inventory(self) -> None:
         """Fill inventory dictionary with items from dataframe."""
         for n in self.get_AllItems_names:
@@ -128,6 +126,10 @@ class Inventory(object):
         details = self.get_inventory_details()
         return self.make_inventory_details(details)
 
+    def __len__(self):
+        """Get the amount of inventory items"""
+        return len(self.read_inventory_item_from_excel())
+
 
 if __name__ == "__main__":
     images_filepath = "./images"
@@ -135,4 +137,5 @@ if __name__ == "__main__":
 
     # make Inventory object
     inventory = Inventory(inventory_name, images_filepath)
-    df = inventory.read_inventory_details_from_excel()
+    df = inventory.read_inventory_item_from_excel()
+    print(len(inventory))

@@ -58,7 +58,7 @@ class Purchase_Sheet(ABC):
 
     def fill_table(self) -> None:
         """Fill in table with inventory items."""
-        for i in range(1, len(self.inventory_AllItems) + 1):
+        for i in range(1, len(self.inventory) + 1):
             name = list(self.inventory_AllItems.keys())[i - 1]
             item = self.inventory_AllItems[name]
 
@@ -94,6 +94,10 @@ class Purchase_Sheet(ABC):
 
 
 class Snuisters_Purchase_Sheet(Purchase_Sheet):
+    """Purchase sheet specifically for Snuisters."""
+    header_labels: List[str] = ["Artikel", "Prijs",
+                                "Winstmarge", "Geleverd", "Verkocht"]
+
     def create(
         self, doc_name: str, template_name: str, table_style: str = "Plain Table 1"
     ) -> None:
@@ -104,10 +108,10 @@ class Snuisters_Purchase_Sheet(Purchase_Sheet):
         # adding details about inventory
         self.make_details_paragraph()
         # making table for inventory items
-        rows, cols = len(self.inventory_AllItems) + 1, 5
+        rows, cols = len(self.inventory) + 1, len(self.header_labels)
         self.make_doc_table(rows, cols)
-        labels = ["Artikel", "Prijs", "Winstmarge", "Geleverd", "Verkocht"]
-        self.fill_table_header(labels)
+        # labels = ["Artikel", "Prijs", "Winstmarge", "Geleverd", "Verkocht"]
+        self.fill_table_header(self.header_labels)
         self.fill_table()
         self.set_table_style(table_style)
         self.doc.save(doc_name + '.docx')
