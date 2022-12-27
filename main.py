@@ -14,11 +14,11 @@ from packages.inventory import Inventory
 from packages.purchase_sheet import Snuisters_Purchase_Sheet
 
 
-images_filepath = "./images"
-inventory_name = "Bestelbon.xlsx"
+IMAGES_FILEPATH = "./images"
+INVENTORY_NAME = "Bestelbon.xlsx"
 
 # make Inventory object
-inventory = Inventory(inventory_name, images_filepath)
+inventory = Inventory(INVENTORY_NAME, IMAGES_FILEPATH)
 template_name = inventory.details.template_name
 inventory_dict = inventory.AllItems
 

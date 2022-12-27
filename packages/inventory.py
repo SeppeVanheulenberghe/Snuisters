@@ -121,10 +121,20 @@ class Inventory(object):
         """Get names from inventory items."""
         return self.read_inventory_item_from_excel()["Artikel"]
 
+    # @property
+    # def details(self) -> Details:
+    #     details = self.get_inventory_details()
+    #     return self.make_inventory_details(details)
+
     @property
-    def details(self) -> Details:
-        details = self.get_inventory_details()
-        return self.make_inventory_details(details)
+    def details(self):
+        """Get inventory details"""
+        return self.DETAILS
+
+    @details.setter
+    def set_details(self, details: tuple) -> None:
+        """Set inventory details"""
+        self.DETAILS = self.make_inventory_details(details)
 
     def __len__(self):
         """Get the amount of inventory items"""
