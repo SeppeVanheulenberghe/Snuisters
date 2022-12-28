@@ -2,8 +2,8 @@ from tkinter import *
 import customtkinter
 from enum import Enum
 from typing import List
-from dataclasses import dataclass
-from packages.inventory import Inventory, Details
+# from dataclasses import dataclass
+from packages.inventory import Inventory
 from packages.purchase_sheet import Snuisters_Purchase_Sheet
 
 
