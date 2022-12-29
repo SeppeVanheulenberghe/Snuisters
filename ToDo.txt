@@ -1,5 +1,0 @@
-excel sheet with: 
-                    - adressor name
-                    - template name
-                    - inventory xlsx name
-                    - images folder name
