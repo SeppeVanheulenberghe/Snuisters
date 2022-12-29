@@ -14,7 +14,7 @@ class DocumentCreator(Protocol):
 
 
 class SnuistersPurchaseSheetCreator():
-    """Purchase sheet creation codec."""
+    """Snuisters purchase sheet creation codec."""
     IMAGES_FILEPATH = "./images"
 
     def prepare_document(self, inventory: Inventory) -> None:
@@ -35,10 +35,10 @@ class SnuistersPurchaseSheetFactory():
     """Factory aimed at creating a Snuister purchase sheet."""
 
     def get_document_creator(self) -> DocumentCreator:
-        return SnuistersPurchaseSheetCreator
+        return SnuistersPurchaseSheetCreator()
 
 
 def read_creator(doc_creator: str) -> DocumentCreatorFactory:
     """Return the selected document creator factory."""
-    factories = {"Snuisters Purchase Sheet": SnuistersPurchaseSheetCreator}
+    factories = {"Snuisters Purchase Sheet": SnuistersPurchaseSheetFactory()}
     return factories[doc_creator]

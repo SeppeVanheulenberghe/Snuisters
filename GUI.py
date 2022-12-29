@@ -1,6 +1,7 @@
 from tkinter import *
 import customtkinter
-from GUI.GUI_Code import EntryBox, CreatePurchaseSheet
+from main import create_document_from_GUI
+# from GUI.GUI_Code import EntryBox, CreatePurchaseSheet
 
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("dark-blue")
@@ -67,7 +68,7 @@ create_button = customtkinter.CTkButton(
     width=200, height=40,
     compound="top",
     # EntryBox(ENTRY_BOXES).EmptyAllEntryBoxes()
-    command=lambda: CreatePurchaseSheet(ENTRY_BOXES)
+    command=lambda: create_document_from_GUI(ENTRY_BOXES)
 )
 create_button.pack(pady=20)
 

@@ -19,7 +19,7 @@ class InventoryItem(object):
     price: float
     profit: float
     number: int
-    image_folder_filepath: str = ""
+    image_folder_filepath: str = "./images"
     image: str = ""
 
     def create_images_list(self) -> list[str]:
@@ -57,7 +57,7 @@ class Inventory(object):
 
     inventory: dict = {}
 
-    def __init__(self, inventory_name: str, image_folder_filepath: str):
+    def __init__(self, inventory_name: str, image_folder_filepath: str = "./images"):
         self.inventory_name = inventory_name
         self.image_folder_filepath = image_folder_filepath
         # self.store_AllItems_in_inventory()  # place this inside property object

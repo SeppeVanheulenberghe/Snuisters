@@ -1,10 +1,6 @@
 from tkinter import *
 import customtkinter
 from enum import Enum
-from typing import List
-# from dataclasses import dataclass
-from packages.inventory import Inventory
-from packages.purchase_sheet import Snuisters_Purchase_Sheet
 
 
 class EntryBox(object):
@@ -52,26 +48,3 @@ class EntryBox(object):
         """Get name of template docx"""
         TEMPLATE_NAME = self.ENTRY_BOXES["TEMPLATE_DOCX_ENTRY"].get()
         return TEMPLATE_NAME
-
-
-def CreatePurchaseSheet(ENTRY_BOXES):
-    """Create the purchase sheet"""
-    IMAGES_FILEPATH = "./images"
-
-    # CREATE EntryBox OBJECT
-    entry_box = EntryBox(ENTRY_BOXES)
-
-    # READ DETAILS
-    INVENTORY_NAME = entry_box.GetInventoryName
-    PURCHASE_SHEET_NAME = entry_box.GetPurchaseSheetName
-    HOST = entry_box.GetHostName
-    TEMPLATE_NAME = entry_box.GetTemplateName
-    DETAILS = (HOST, TEMPLATE_NAME, PURCHASE_SHEET_NAME)
-
-    # MAKE Inventory OBJECT
-    inventory = Inventory(INVENTORY_NAME, IMAGES_FILEPATH)
-    inventory.set_details = DETAILS
-
-    # CREATE PURCHASE SHEET
-    purchase_sheet = Snuisters_Purchase_Sheet(inventory)
-    purchase_sheet.create(PURCHASE_SHEET_NAME, TEMPLATE_NAME)
