@@ -1,1 +1,1 @@
-from .GUI_Code import EntryBox
+from .GUI_Code import EntryBoxHandler

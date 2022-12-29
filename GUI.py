@@ -1,7 +1,7 @@
 from tkinter import *
 import customtkinter
 from main import create_document_from_GUI
-# from GUI.GUI_Code import EntryBox, CreatePurchaseSheet
+
 
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("dark-blue")

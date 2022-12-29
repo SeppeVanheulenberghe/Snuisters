@@ -3,8 +3,8 @@ import customtkinter
 from enum import Enum
 
 
-class EntryBox(object):
-    """Create button executor """
+class EntryBoxHandler(object):
+    """Get information from entry boxes"""
 
     NAMES = ["INVENTORY_EXCEL_ENTRY", "OUTFILE_DOCX_ENTRY",
              "HOST_ENTRY", "TEMPLATE_DOCX_ENTRY"]
