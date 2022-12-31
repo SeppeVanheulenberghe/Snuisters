@@ -36,12 +36,13 @@ name_inventory_excel_entry = customtkinter.CTkEntry(
     border_width=1,
     corner_radius=10)
 name_inventory_excel_entry.pack(pady=10)
+name_inventory_excel_entry.insert(END, "Bestelbon.xlsx")
 ENTRY_BOXES[NAME] = name_inventory_excel_entry
 
 NAME = "PurchaseSheetName"  # "OUTFILE_DOCX_ENTRY"
 name_outfile_docx_entry = customtkinter.CTkEntry(
     master=tabview.tab(SHEET_TAB),
-    placeholder_text='output file name (.docx)',
+    placeholder_text='document name',
     width=300,
     height=30,
     border_width=1,
@@ -83,6 +84,7 @@ name_template_entry = customtkinter.CTkEntry(
     border_width=1,
     corner_radius=10)
 name_template_entry.pack(pady=10)
+name_template_entry.insert(END, 'template')
 ENTRY_BOXES[NAME] = name_template_entry
 
 root.mainloop()
