@@ -60,7 +60,6 @@ class Inventory(object):
     def __init__(self, inventory_name: str, image_folder_filepath: str = "./images"):
         self.inventory_name = inventory_name
         self.image_folder_filepath = image_folder_filepath
-        # self.store_AllItems_in_inventory()  # place this inside property object
 
     def read_inventory_item_from_excel(self) -> Any:
         """Write inventory items to pandas dataframe."""
@@ -120,11 +119,6 @@ class Inventory(object):
     def get_AllItems_names(self):
         """Get names from inventory items."""
         return self.read_inventory_item_from_excel()["Artikel"]
-
-    # @property
-    # def details(self) -> Details:
-    #     details = self.get_inventory_details()
-    #     return self.make_inventory_details(details)
 
     @property
     def details(self):
