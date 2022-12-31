@@ -1,121 +1,117 @@
 from tkinter import *
 from typing import Protocol
 import customtkinter
-from dataclasses import dataclass
 
 
 class EntryBoxHandler(Protocol):
     """Basic representation of an entry box handling codec"""
 
-    def read_entry_box(self):
+    def read(self, entry_box: customtkinter.CTkEntry):
         """Read entry box."""
 
-    def empty_entry_box(self):
+    def empty(self):
         """Empty entry box."""
+
+    @property
+    def get(self):
+        """Get entry box value"""
 
 
 class InventoryNameEntryBoxHandler():
     """Inventory name entry box handler."""
 
-    def __init__(self, entry_box: customtkinter.CTkEntry) -> None:
+    def read(self, entry_box: customtkinter.CTkEntry) -> str:
         self.entry_box = entry_box
+        self.inventory_name = entry_box.get()
 
-    def read_entry_box(self):
-        """Read entry box."""
-        return self.entry_box.get()
-
-    def empty_entry_box(self):
-        """Empty entry box."""
+    def empty(self) -> None:
         self.entry_box.delete(0, END)
+
+    @property
+    def get(self):
+        return self.inventory_name
 
 
 class PurchaseSheetNameEntryBoxHandler():
     """Purchase sheet name entry box handler."""
 
-    def __init__(self, entry_box: customtkinter.CTkEntry) -> None:
+    def read(self, entry_box: customtkinter.CTkEntry) -> str:
         self.entry_box = entry_box
+        self.purchase_sheet_name = entry_box.get()
 
-    def read_entry_box(self):
-        """Read entry box."""
-        return self.entry_box.get()
-
-    def empty_entry_box(self):
-        """Empty entry box."""
+    def empty(self) -> None:
         self.entry_box.delete(0, END)
+
+    @property
+    def get(self):
+        return self.purchase_sheet_name
 
 
 class HostNameEntryBoxHandler():
     """Host name entry box handler."""
 
-    def __init__(self, entry_box: customtkinter.CTkEntry) -> None:
+    def read(self, entry_box: customtkinter.CTkEntry) -> str:
         self.entry_box = entry_box
+        self.host_name = entry_box.get()
 
-    def read_entry_box(self):
-        """Read entry box."""
-        return self.entry_box.get()
-
-    def empty_entry_box(self):
-        """Empty entry box."""
+    def empty(self) -> None:
         self.entry_box.delete(0, END)
+
+    @property
+    def get(self):
+        return self.host_name
 
 
 class TemplateNameEntryBoxHandler():
     """Template name entry box handler."""
 
-    def __init__(self, entry_box: customtkinter.CTkEntry) -> None:
+    def read(self, entry_box: customtkinter.CTkEntry) -> str:
         self.entry_box = entry_box
+        self.template_name = entry_box.get()
 
-    def read_entry_box(self):
-        """Read entry box."""
-        return self.entry_box.get()
-
-    def empty_entry_box(self):
-        """Empty entry box."""
+    def empty(self) -> None:
         pass
 
+    @property
+    def get(self):
+        return self.template_name
 
-class EntryBoxHandler(object):
-    """Get information from entry boxes"""
 
-    NAMES = ["INVENTORY_EXCEL_ENTRY", "OUTFILE_DOCX_ENTRY",
-             "HOST_ENTRY", "TEMPLATE_DOCX_ENTRY"]
+class GUI():
+    """Handles all element of the gui."""
+
+    HANDLERS = {"InventoryName": InventoryNameEntryBoxHandler(),
+                "PurchaseSheetName": PurchaseSheetNameEntryBoxHandler(),
+                "HostName": HostNameEntryBoxHandler(),
+                "TemplateName": TemplateNameEntryBoxHandler()
+                }
 
     def __init__(self, ENTRY_BOXES):
         self.ENTRY_BOXES = ENTRY_BOXES
 
-    def EmptyEntryBox(self, entry_box: customtkinter.CTkEntry) -> None:
-        """Empty the given entry boxes."""
-        entry_box.delete(0, END)
-
-    def EmptyAllEntryBoxes(self) -> None:
-        """Empty all given entry boxes"""
-        for box in self.ENTRY_BOXES.values():
-            self.EmptyEntryBox(box)
-
-    def ReadEntryBox(self, entry_box):
-        """Read entry box."""
-        return entry_box.get()
+    def get_gui_info(self):
+        """Retrieve info from gui input elements."""
+        for name, handler in self.HANDLERS.items():
+            gui_element = self.ENTRY_BOXES[name]
+            handler.read(gui_element)
+            handler.empty()
 
     @property
-    def GetInventoryName(self) -> str:
-        """Get name of inventory xlsx file"""
-        INVENTORY_NAME = self.ENTRY_BOXES["INVENTORY_EXCEL_ENTRY"].get()
-        return INVENTORY_NAME
+    def InventoryName(self):
+        """Get inventory name."""
+        return self.HANDLERS["InventoryName"].get
 
     @property
-    def GetPurchaseSheetName(self) -> str:
-        """Get name of purchase sheet docx"""
-        OUTFILE_DOCX_ENTRY = self.ENTRY_BOXES["OUTFILE_DOCX_ENTRY"].get()
-        return OUTFILE_DOCX_ENTRY
+    def PurchaseSheetName(self):
+        """Get purchase sheet name."""
+        return self.HANDLERS["PurchaseSheetName"].get
 
     @property
-    def GetHostName(self) -> str:
-        """Get host name"""
-        HOST = self.ENTRY_BOXES["HOST_ENTRY"].get()
-        return HOST
+    def HostName(self):
+        """Get host name."""
+        return self.HANDLERS["HostName"].get
 
     @property
-    def GetTemplateName(self) -> str:
-        """Get name of template docx"""
-        TEMPLATE_NAME = self.ENTRY_BOXES["TEMPLATE_DOCX_ENTRY"].get()
-        return TEMPLATE_NAME
+    def TemplateName(self):
+        """Get template name."""
+        return self.HANDLERS["TemplateName"].get
