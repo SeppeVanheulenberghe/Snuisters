@@ -2,7 +2,7 @@ from tkinter import *
 import customtkinter
 from packages.inventory import Inventory
 from packages.document_factory import read_creator
-from GUI.GUI_Code import EntryBoxHandler, GUI
+from GUI.GUI_Code import GUI
 
 
 def create_document_from_GUI(ENTRY_BOXES: dict[str, customtkinter.CTkEntry]):
