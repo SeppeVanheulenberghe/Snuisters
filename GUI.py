@@ -27,7 +27,7 @@ tabview.set(SHEET_TAB)
 
 # SHEET_TAB
 # Entry boxes
-NAME = "INVENTORY_EXCEL_ENTRY"
+NAME = "InventoryName"  # "INVENTORY_EXCEL_ENTRY"
 name_inventory_excel_entry = customtkinter.CTkEntry(
     master=tabview.tab(SHEET_TAB),
     placeholder_text='inventory file name (.xslx)',
@@ -38,7 +38,7 @@ name_inventory_excel_entry = customtkinter.CTkEntry(
 name_inventory_excel_entry.pack(pady=10)
 ENTRY_BOXES[NAME] = name_inventory_excel_entry
 
-NAME = "OUTFILE_DOCX_ENTRY"
+NAME = "PurchaseSheetName"  # "OUTFILE_DOCX_ENTRY"
 name_outfile_docx_entry = customtkinter.CTkEntry(
     master=tabview.tab(SHEET_TAB),
     placeholder_text='output file name (.docx)',
@@ -49,7 +49,7 @@ name_outfile_docx_entry = customtkinter.CTkEntry(
 name_outfile_docx_entry.pack(pady=10)
 ENTRY_BOXES[NAME] = name_outfile_docx_entry
 
-NAME = "HOST_ENTRY"
+NAME = "HostName"  # "HOST_ENTRY"
 name_host_entry = customtkinter.CTkEntry(
     master=tabview.tab(SHEET_TAB),
     placeholder_text='host name',
@@ -74,7 +74,7 @@ create_button.pack(pady=20)
 
 # ADVANCED_TAB
 # Entry boxes
-NAME = "TEMPLATE_DOCX_ENTRY"
+NAME = "TemplateName"  # "TEMPLATE_DOCX_ENTRY"
 name_template_entry = customtkinter.CTkEntry(
     master=tabview.tab(ADVANCED_TAB),
     placeholder_text='template file name (.docx)',
