@@ -25,8 +25,8 @@ class InventoryNameEntryBoxHandler():
         self.inventory_name = entry_box.get()
 
     def empty(self) -> None:
-        self.entry_box.delete(0, END)
-
+        pass
+    
     @property
     def get(self):
         return self.inventory_name
