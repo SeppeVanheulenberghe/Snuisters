@@ -36,7 +36,7 @@ class Purchase_Sheet(ABC):
         """Add text to already existing paragraph by name"""
         paragraph_name.add_run(text)
 
-    def add_host_to_details(self, details):
+    def add_host_to_details_paragraph(self, details):
         """Add the host of the inventory to the Document object"""
         host = f"ONTVANGER: {self.inventory_details.host}"
         self.add_text_to_paragraph(details, host)
@@ -44,7 +44,7 @@ class Purchase_Sheet(ABC):
     def make_details_paragraph(self):
         self.add_heading('Details', 1)
         details = self.add_paragraph()
-        self.add_host_to_details(details)
+        self.add_host_to_details_paragraph(details)
 
     def make_doc_table(self, rows: int, cols: int) -> None:
         """Add table to document."""
@@ -110,7 +110,7 @@ class Snuisters_Purchase_Sheet(Purchase_Sheet):
         # making table for inventory items
         rows, cols = len(self.inventory) + 1, len(self.header_labels)
         self.make_doc_table(rows, cols)
-        # labels = ["Artikel", "Prijs", "Winstmarge", "Geleverd", "Verkocht"]
+        # labels = ["Artikel", "Prijs", "Winstmarge", "Geleverd", "Verkocht", "Betaald"]
         self.fill_table_header(self.header_labels)
         self.fill_table()
         self.set_table_style(table_style)

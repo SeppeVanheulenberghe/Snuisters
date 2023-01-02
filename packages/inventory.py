@@ -61,17 +61,17 @@ class Inventory(object):
         self.inventory_name = inventory_name
         self.image_folder_filepath = image_folder_filepath
 
-    def read_inventory_item_from_excel(self) -> Any:
+    def read_inventory_items_from_excel(self) -> pd.DataFrame:
         """Write inventory items to pandas dataframe."""
         return pd.read_excel(self.inventory_name, sheet_name='Order')
 
-    def read_inventory_details_from_excel(self) -> Any:
+    def read_inventory_details_from_excel(self) -> pd.DataFrame:
         """Write inventory details to pandas dataframe"""
         return pd.read_excel(self.inventory_name, sheet_name='Details')
 
     def get_inventory_item_parameters(self, item_name: str) -> tuple:
         """Return parameters for Inventory_Item object."""
-        inventory_df = self.read_inventory_item_from_excel()
+        inventory_df = self.read_inventory_items_from_excel()
         db_item = inventory_df[inventory_df["Artikel"] == item_name]
         price = float(db_item["Prijs"])
         profit = float(db_item["Winstmarge"])
@@ -118,7 +118,7 @@ class Inventory(object):
     @property
     def get_AllItems_names(self):
         """Get names from inventory items."""
-        return self.read_inventory_item_from_excel()["Artikel"]
+        return self.read_inventory_items_from_excel()["Artikel"]
 
     @property
     def details(self):
@@ -132,7 +132,7 @@ class Inventory(object):
 
     def __len__(self):
         """Get the amount of inventory items"""
-        return len(self.read_inventory_item_from_excel())
+        return len(self.read_inventory_items_from_excel())
 
 
 if __name__ == "__main__":
@@ -141,5 +141,5 @@ if __name__ == "__main__":
 
     # make Inventory object
     inventory = Inventory(inventory_name, images_filepath)
-    df = inventory.read_inventory_item_from_excel()
+    df = inventory.read_inventory_items_from_excel()
     print(len(inventory))
