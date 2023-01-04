@@ -3,6 +3,7 @@ import customtkinter
 from packages.inventory import Inventory
 from packages.document_factory import read_creator
 from GUI.GUI_Code import GUI
+from datetime import datetime
 
 
 def create_document_from_GUI(ENTRY_BOXES: dict[str, customtkinter.CTkEntry]):
@@ -33,3 +34,12 @@ def create_document_from_GUI(ENTRY_BOXES: dict[str, customtkinter.CTkEntry]):
 
     # create document
     doc_creator.create_document(PURCHASE_SHEET_NAME, TEMPLATE_NAME)
+
+    print(f"""========================================================
+    DOCUMENT CREATED: {datetime.now()}
+    NAME: {PURCHASE_SHEET_NAME}
+    HOST: {HOST_NAME}
+    INVENTORY: {INVENTORY_NAME}
+    TEMPLATE: {TEMPLATE_NAME}
+========================================================
+                        """)
