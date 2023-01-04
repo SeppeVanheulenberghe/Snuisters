@@ -13,7 +13,7 @@ def test_make_InventoryItem() -> None:
 def test_Inventory_AllItems():
     inventory_name = 'Bestelbon.xlsx'
     inventory = Inventory(inventory_name)
-    inventory_dataframe = inventory.read_inventory_items_from_excel()
+    inventory_dataframe = inventory.retrieve_inventory_items_from_excel()
     assert isinstance(inventory.AllItems, dict) and len(
         inventory) == len(inventory_dataframe)
 

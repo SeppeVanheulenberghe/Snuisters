@@ -23,14 +23,14 @@ class InventoryItem(object):
     image: str = ""
 
     def create_images_list(self) -> list[str]:
-        """Make a list of images inside images-folder."""
+        """Make a list of images from images-folder."""
         images = [
             im.lower().replace(" ", "") for im in listdir(self.image_folder_filepath)
         ]
         return images
 
     def find_image(self) -> str:
-        """Find name-like image in images folder."""
+        """Find image with same name as InventoryItem from images_list."""
         images = self.create_images_list()
         name = self.name.lower().replace(" ", "")
         for im in images:
@@ -39,7 +39,7 @@ class InventoryItem(object):
                 return im
 
     def set_image(self) -> None:
-        """Set image of Item object."""
+        """Set image of InventoryItem object."""
         self.image = self.find_image()
 
 
@@ -61,51 +61,51 @@ class Inventory(object):
         self.inventory_name = inventory_name
         self.image_folder_filepath = image_folder_filepath
 
-    def read_inventory_items_from_excel(self) -> pd.DataFrame:
+    def retrieve_inventory_items_from_excel(self) -> pd.DataFrame:
         """Write inventory items to pandas dataframe."""
         return pd.read_excel(self.inventory_name, sheet_name='Order')
 
-    def read_inventory_details_from_excel(self) -> pd.DataFrame:
+    def retrieve_inventory_details_from_excel(self) -> pd.DataFrame:
         """Write inventory details to pandas dataframe"""
         return pd.read_excel(self.inventory_name, sheet_name='Details')
 
-    def get_inventory_item_parameters(self, item_name: str) -> tuple:
+    def retrieve_inventory_item_parameters(self, item_name: str) -> tuple:
         """Return parameters for Inventory_Item object."""
-        inventory_df = self.read_inventory_items_from_excel()
+        inventory_df = self.retrieve_inventory_items_from_excel()
         db_item = inventory_df[inventory_df["Artikel"] == item_name]
         price = float(db_item["Prijs"])
         profit = float(db_item["Winstmarge"])
         number = int(db_item["Geleverd"])
         return item_name, price, profit, number
 
-    def get_inventory_details(self):
+    def retrieve_inventory_details(self):
         """Return details from details-sheet dataframe."""
-        details_df = self.read_inventory_details_from_excel()
+        details_df = self.retrieve_inventory_details_from_excel()
         host = details_df['Ontvanger'].item()
         template_name = details_df['Template'].item()
         purchase_sheet_name = details_df['Documentnaam'].item()
         return host, template_name, purchase_sheet_name
 
-    def make_inventory_item(self, item_parameters: tuple) -> InventoryItem:
+    def construct_inventory_item(self, item_parameters: tuple) -> InventoryItem:
         """Make InventoryItem object."""
         name, price, profit, number = item_parameters
         return InventoryItem(name, price, profit, number, self.image_folder_filepath)
 
-    def make_inventory_details(self, details: tuple) -> Details:
+    def construct_inventory_details(self, details: tuple) -> Details:
         """Make details object."""
         host, template_name, purchase_sheet_name = details
         return Details(host, template_name, purchase_sheet_name)
 
-    def add_inventory_item(self, item: InventoryItem) -> Any:
-        """Add Inventory_Item to to inventory."""
+    def add_inventory_item(self, item: InventoryItem) -> None:
+        """Add Inventory_Item to inventory instance variable."""
         name = item.name
         self.inventory[name] = item
 
     def store_AllItems_in_inventory(self) -> None:
         """Fill inventory dictionary with items from dataframe."""
         for n in self.get_AllItems_names:
-            item_parameters = self.get_inventory_item_parameters(n)
-            item = self.make_inventory_item(item_parameters)
+            item_parameters = self.retrieve_inventory_item_parameters(n)
+            item = self.construct_inventory_item(item_parameters)
             item.set_image()
             self.add_inventory_item(item)
 
@@ -118,7 +118,7 @@ class Inventory(object):
     @property
     def get_AllItems_names(self):
         """Get names from inventory items."""
-        return self.read_inventory_items_from_excel()["Artikel"]
+        return self.retrieve_inventory_items_from_excel()["Artikel"]
 
     @property
     def details(self):
@@ -128,18 +128,8 @@ class Inventory(object):
     @details.setter
     def set_details(self, details: tuple) -> None:
         """Set inventory details"""
-        self.DETAILS = self.make_inventory_details(details)
+        self.DETAILS = self.construct_inventory_details(details)
 
     def __len__(self):
         """Get the amount of inventory items"""
-        return len(self.read_inventory_items_from_excel())
-
-
-if __name__ == "__main__":
-    images_filepath = "./images"
-    inventory_name = "Bestelbon.xlsx"
-
-    # make Inventory object
-    inventory = Inventory(inventory_name, images_filepath)
-    df = inventory.read_inventory_items_from_excel()
-    print(len(inventory))
+        return len(self.retrieve_inventory_items_from_excel())
