@@ -2,15 +2,15 @@ from tkinter import *
 import customtkinter
 from packages.inventory import Inventory
 from packages.document_factory import read_creator
-from GUI.GUI_Code import GUI
+from GUI.GUI_Code import GUIController
 from datetime import datetime
 
 
 def create_document_from_GUI(ENTRY_BOXES: dict[str, customtkinter.CTkEntry]):
     """Main document creation codec."""
     # prepare GUI
-    gui = GUI(ENTRY_BOXES)
-    gui.get_gui_info()
+    gui = GUIController(ENTRY_BOXES)
+    gui.retrieve_gui_info()
 
     # get info
     INVENTORY_NAME = gui.InventoryName

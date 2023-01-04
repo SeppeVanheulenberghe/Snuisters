@@ -65,10 +65,6 @@ class Inventory(object):
         """Write inventory items to pandas dataframe."""
         return pd.read_excel(self.inventory_name, sheet_name='Order')
 
-    def retrieve_inventory_details_from_excel(self) -> pd.DataFrame:
-        """Write inventory details to pandas dataframe"""
-        return pd.read_excel(self.inventory_name, sheet_name='Details')
-
     def retrieve_inventory_item_parameters(self, item_name: str) -> tuple:
         """Return parameters for Inventory_Item object."""
         inventory_df = self.retrieve_inventory_items_from_excel()
@@ -77,14 +73,6 @@ class Inventory(object):
         profit = float(db_item["Winstmarge"])
         number = int(db_item["Geleverd"])
         return item_name, price, profit, number
-
-    def retrieve_inventory_details(self):
-        """Return details from details-sheet dataframe."""
-        details_df = self.retrieve_inventory_details_from_excel()
-        host = details_df['Ontvanger'].item()
-        template_name = details_df['Template'].item()
-        purchase_sheet_name = details_df['Documentnaam'].item()
-        return host, template_name, purchase_sheet_name
 
     def construct_inventory_item(self, item_parameters: tuple) -> InventoryItem:
         """Make InventoryItem object."""

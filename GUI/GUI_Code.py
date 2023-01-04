@@ -26,7 +26,7 @@ class InventoryNameEntryBoxHandler():
 
     def empty(self) -> None:
         pass
-    
+
     @property
     def get(self):
         return self.inventory_name
@@ -77,8 +77,8 @@ class TemplateNameEntryBoxHandler():
         return self.template_name
 
 
-class GUI():
-    """Handles all element of the gui."""
+class GUIController():
+    """Controls all elements of the gui. Processes data retrieved from GUI interface"""
 
     HANDLERS = {"InventoryName": InventoryNameEntryBoxHandler(),
                 "PurchaseSheetName": PurchaseSheetNameEntryBoxHandler(),
@@ -89,7 +89,7 @@ class GUI():
     def __init__(self, ENTRY_BOXES):
         self.ENTRY_BOXES = ENTRY_BOXES
 
-    def get_gui_info(self):
+    def retrieve_gui_info(self):
         """Retrieve info from gui input elements."""
         for name, handler in self.HANDLERS.items():
             gui_element = self.ENTRY_BOXES[name]

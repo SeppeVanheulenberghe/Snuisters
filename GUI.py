@@ -9,7 +9,7 @@ customtkinter.set_default_color_theme("dark-blue")
 root = customtkinter.CTk()
 
 root.title('Purchase Sheet Application')
-root.geometry("500x350")
+root.geometry("350x300")
 
 
 ENTRY_BOXES = {}
@@ -17,17 +17,21 @@ ENTRY_BOXES = {}
 
 # Tabview
 tabview = customtkinter.CTkTabview(root)
-tabview.pack(padx=20, pady=20)
+tabview.pack(padx=1, pady=1)
 SHEET_TAB = "Sheet"
 ADVANCED_TAB = "Advanced"
 tabview.add(SHEET_TAB)
 tabview.add(ADVANCED_TAB)
 tabview.set(SHEET_TAB)
 
-
+# ============================================
 # SHEET_TAB
+# ============================================
+
 # Entry boxes
-NAME = "InventoryName"  # "INVENTORY_EXCEL_ENTRY"
+# --------------------------------------------
+
+NAME = "InventoryName"
 name_inventory_excel_entry = customtkinter.CTkEntry(
     master=tabview.tab(SHEET_TAB),
     placeholder_text='inventory file name (.xslx)',
@@ -39,7 +43,7 @@ name_inventory_excel_entry.pack(pady=10)
 name_inventory_excel_entry.insert(END, "Bestelbon.xlsx")
 ENTRY_BOXES[NAME] = name_inventory_excel_entry
 
-NAME = "PurchaseSheetName"  # "OUTFILE_DOCX_ENTRY"
+NAME = "PurchaseSheetName"
 name_outfile_docx_entry = customtkinter.CTkEntry(
     master=tabview.tab(SHEET_TAB),
     placeholder_text='document name',
@@ -50,7 +54,7 @@ name_outfile_docx_entry = customtkinter.CTkEntry(
 name_outfile_docx_entry.pack(pady=10)
 ENTRY_BOXES[NAME] = name_outfile_docx_entry
 
-NAME = "HostName"  # "HOST_ENTRY"
+NAME = "HostName"
 name_host_entry = customtkinter.CTkEntry(
     master=tabview.tab(SHEET_TAB),
     placeholder_text='host name',
@@ -63,19 +67,25 @@ ENTRY_BOXES[NAME] = name_host_entry
 
 
 # Create Button
+# --------------------------------------------
+
 create_button = customtkinter.CTkButton(
     master=tabview.tab(SHEET_TAB),
     text='CREATE',
     width=200, height=40,
     compound="top",
-    # EntryBox(ENTRY_BOXES).EmptyAllEntryBoxes()
     command=lambda: create_document_from_GUI(ENTRY_BOXES)
 )
 create_button.pack(pady=20)
 
+# ============================================
 # ADVANCED_TAB
+# ============================================
+
 # Entry boxes
-NAME = "TemplateName"  # "TEMPLATE_DOCX_ENTRY"
+# --------------------------------------------
+
+NAME = "TemplateName"
 name_template_entry = customtkinter.CTkEntry(
     master=tabview.tab(ADVANCED_TAB),
     placeholder_text='template file name (.docx)',
