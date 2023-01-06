@@ -18,14 +18,17 @@ class InventoryItem(object):
     name: str
     price: float
     profit: float
-    number: int
+    number_received: int
     image_folder_filepath: str = "./images"
     image: str = ""
 
     def create_images_list(self) -> list[str]:
         """Make a list of images from images-folder."""
+        # images = [
+        #     im.lower().replace(" ", "") for im in listdir(self.image_folder_filepath)
+        # ]
         images = [
-            im.lower().replace(" ", "") for im in listdir(self.image_folder_filepath)
+            im for im in listdir(self.image_folder_filepath)
         ]
         return images
 
@@ -34,8 +37,8 @@ class InventoryItem(object):
         images = self.create_images_list()
         name = self.name.lower().replace(" ", "")
         for im in images:
-            im_name = im.lower().replace(" ", "")
-            if name in im_name:
+            im_name = im.lower().replace(" ", "").split('.')[0]
+            if name == im_name:
                 return im
 
     def set_image(self) -> None:
@@ -71,7 +74,7 @@ class Inventory(object):
         db_item = inventory_df[inventory_df["Artikel"] == item_name]
         price = float(db_item["Prijs"])
         profit = float(db_item["Winstmarge"])
-        number = int(db_item["Geleverd"])
+        number = int(db_item["Aantal Ontvangen"])
         return item_name, price, profit, number
 
     def construct_inventory_item(self, item_parameters: tuple) -> InventoryItem:

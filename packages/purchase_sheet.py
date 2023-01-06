@@ -75,7 +75,7 @@ class Purchase_Sheet(ABC):
 
             row[1].text = "€ " + f"{item.price:.2f}"
             row[2].text = "€ " + f"{item.profit:.2f}"
-            row[3].text = str(item.number)
+            row[3].text = str(item.number_received)
 
     @property
     def get_inventory_details_host(self) -> str:
@@ -95,8 +95,8 @@ class Purchase_Sheet(ABC):
 
 class Snuisters_Purchase_Sheet(Purchase_Sheet):
     """Purchase sheet specifically for Snuisters."""
-    header_labels: List[str] = ["Artikel", "Prijs",
-                                "Winstmarge", "Geleverd", "Verkocht"]
+    header_labels: List[str] = ["ARTIKEL", "PRIJS",
+                                "WINSTMARGE", "AANTAL\nONTVANGEN", "AANTAL\nVERKOCHT"]
 
     def create(
         self, doc_name: str, template_name: str, table_style: str = "Plain Table 1"
@@ -110,7 +110,6 @@ class Snuisters_Purchase_Sheet(Purchase_Sheet):
         # making table for inventory items
         rows, cols = len(self.inventory) + 1, len(self.header_labels)
         self.make_doc_table(rows, cols)
-        # labels = ["Artikel", "Prijs", "Winstmarge", "Geleverd", "Verkocht", "Betaald"]
         self.fill_table_header(self.header_labels)
         self.fill_table()
         self.set_table_style(table_style)
