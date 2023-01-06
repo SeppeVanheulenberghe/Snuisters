@@ -97,4 +97,12 @@ name_template_entry.pack(pady=10)
 name_template_entry.insert(END, 'template')
 ENTRY_BOXES[NAME] = name_template_entry
 
+NAME = "OptionMenu"
+option_menu = customtkinter.CTkOptionMenu(
+    master=tabview.tab(ADVANCED_TAB),
+    values=["overzicht", "factuur"]
+)
+option_menu.pack(pady=10)
+option_menu.set("overzicht")
+
 root.mainloop()
