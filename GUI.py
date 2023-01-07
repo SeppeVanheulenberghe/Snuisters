@@ -18,11 +18,11 @@ ENTRY_BOXES = {}
 # Tabview
 tabview = customtkinter.CTkTabview(root)
 tabview.pack(padx=1, pady=1)
-SHEET_TAB = "Sheet"
-ADVANCED_TAB = "Advanced"
-tabview.add(SHEET_TAB)
-tabview.add(ADVANCED_TAB)
-tabview.set(SHEET_TAB)
+DOCUMENT_TAB = "Document"
+INFO_TAB = "Info"
+tabview.add(DOCUMENT_TAB)
+tabview.add(INFO_TAB)
+tabview.set(DOCUMENT_TAB)
 
 # ============================================
 # SHEET_TAB
@@ -33,7 +33,7 @@ tabview.set(SHEET_TAB)
 
 NAME = "InventoryName"
 name_inventory_excel_entry = customtkinter.CTkEntry(
-    master=tabview.tab(SHEET_TAB),
+    master=tabview.tab(DOCUMENT_TAB),
     placeholder_text='inventory file name (.xslx)',
     width=400,
     height=30,
@@ -45,7 +45,7 @@ ENTRY_BOXES[NAME] = name_inventory_excel_entry
 
 NAME = "PurchaseSheetName"
 name_outfile_docx_entry = customtkinter.CTkEntry(
-    master=tabview.tab(SHEET_TAB),
+    master=tabview.tab(DOCUMENT_TAB),
     placeholder_text='document name',
     width=400,
     height=30,
@@ -56,7 +56,7 @@ ENTRY_BOXES[NAME] = name_outfile_docx_entry
 
 NAME = "DocumentTypeOptionMenu"
 option_menu = customtkinter.CTkOptionMenu(
-    master=tabview.tab(SHEET_TAB),
+    master=tabview.tab(DOCUMENT_TAB),
     height=30,
     width=400,
     corner_radius=10,
@@ -70,7 +70,7 @@ option_menu.set("purchase sheet")
 # --------------------------------------------
 
 create_button = customtkinter.CTkButton(
-    master=tabview.tab(SHEET_TAB),
+    master=tabview.tab(DOCUMENT_TAB),
     text='CREATE',
     width=200, height=40,
     compound="top",
@@ -86,13 +86,13 @@ create_button.pack(pady=20)
 # --------------------------------------------
 
 address_label = customtkinter.CTkLabel(
-    master=tabview.tab(ADVANCED_TAB),
+    master=tabview.tab(INFO_TAB),
     text="Host Name")
 address_label.pack(padx=5, anchor=W)
 
 NAME = "HostName"
 name_host_entry = customtkinter.CTkEntry(
-    master=tabview.tab(ADVANCED_TAB),
+    master=tabview.tab(INFO_TAB),
     placeholder_text='host name',
     width=400,
     height=30,
@@ -102,13 +102,13 @@ name_host_entry.pack(pady=10)
 ENTRY_BOXES[NAME] = name_host_entry
 
 address_label = customtkinter.CTkLabel(
-    master=tabview.tab(ADVANCED_TAB),
+    master=tabview.tab(INFO_TAB),
     text="Address")
 address_label.pack(padx=5, anchor=W)
 
 NAME = "HostAddressStreet"
 host_address_street_entry = customtkinter.CTkEntry(
-    master=tabview.tab(ADVANCED_TAB),
+    master=tabview.tab(INFO_TAB),
     placeholder_text='street + nr',
     width=400,
     height=30,
@@ -119,7 +119,7 @@ ENTRY_BOXES[NAME] = host_address_street_entry
 
 NAME = "HostAddressCity"
 host_address_city_entry = customtkinter.CTkEntry(
-    master=tabview.tab(ADVANCED_TAB),
+    master=tabview.tab(INFO_TAB),
     placeholder_text='City',
     width=400,
     height=30,
@@ -129,13 +129,13 @@ host_address_city_entry.pack(pady=10)
 ENTRY_BOXES[NAME] = host_address_city_entry
 
 host_phone_number_label = customtkinter.CTkLabel(
-    master=tabview.tab(ADVANCED_TAB),
+    master=tabview.tab(INFO_TAB),
     text="Phone Number")
 host_phone_number_label.pack(padx=5, anchor=W)
 
 NAME = "HostPhoneNumber"
 host_phone_number_entry = customtkinter.CTkEntry(
-    master=tabview.tab(ADVANCED_TAB),
+    master=tabview.tab(INFO_TAB),
     placeholder_text='+32',
     width=400,
     height=30,
@@ -147,7 +147,7 @@ ENTRY_BOXES[NAME] = host_phone_number_entry
 
 NAME = "TemplateName"
 name_template_entry = customtkinter.CTkEntry(
-    master=tabview.tab(ADVANCED_TAB),
+    master=tabview.tab(INFO_TAB),
     placeholder_text='template file name (.docx)',
     width=400,
     height=30,

@@ -62,6 +62,51 @@ class HostNameEntryBoxHandler():
         return self.host_name
 
 
+class HostAddressStreetEntryBoxHandler():
+    """HostAddressStreet entry box handler."""
+
+    def read(self, entry_box: customtkinter.CTkEntry) -> str:
+        self.entry_box = entry_box
+        self.host_address_street = entry_box.get()
+
+    def empty(self) -> None:
+        self.entry_box.delete(0, END)
+
+    @property
+    def get(self):
+        return self.host_address_street
+
+
+class HostAddressCityEntryBoxHandler():
+    """HostAddressCity entry box handler."""
+
+    def read(self, entry_box: customtkinter.CTkEntry) -> str:
+        self.entry_box = entry_box
+        self.host_address_city = entry_box.get()
+
+    def empty(self) -> None:
+        self.entry_box.delete(0, END)
+
+    @property
+    def get(self):
+        return self.host_address_city
+
+
+class HostPhoneNumberEntryBoxHandler():
+    """HostPhoneNumber entry box handler."""
+
+    def read(self, entry_box: customtkinter.CTkEntry) -> str:
+        self.entry_box = entry_box
+        self.host_phone_number = entry_box.get()
+
+    def empty(self) -> None:
+        self.entry_box.delete(0, END)
+
+    @property
+    def get(self):
+        return self.host_phone_number
+
+
 class TemplateNameEntryBoxHandler():
     """Template name entry box handler."""
 
