@@ -122,6 +122,21 @@ class HostCompanyNameEntryBoxHandler():
         return self.host_company_name
 
 
+class DocumentTypeOptionMenuHandler():
+    """DocumentTypeOptionMenu handler codec."""
+
+    def read(self, option_menu: customtkinter.CTkOptionMenu) -> str:
+        self.option_menu = option_menu
+        self.document_type = option_menu.get()
+
+    def empty(self) -> None:
+        self.option_menu.delete(0, END)
+
+    @property
+    def get(self):
+        return self.document_type
+
+
 class TemplateNameEntryBoxHandler():
     """Template name entry box handler."""
 
@@ -196,6 +211,11 @@ class GUIController():
     def HostPhoneNumber(self):
         """Get host phone number."""
         return HANDLERS["HostAddressCity"].get
+
+    @property
+    def HostCompanyName(self):
+        """Get host company name."""
+        return HANDLERS["HostCompanyName"].get
 
     @property
     def TemplateName(self):
