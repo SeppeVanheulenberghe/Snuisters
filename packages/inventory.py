@@ -47,6 +47,24 @@ class InventoryItem(object):
 
 
 @dataclass
+class Address():
+    """Store Address information."""
+
+    street: str
+    city: str
+
+
+@dataclass
+class Host():
+    """Store information about host."""
+
+    name: str
+    company_name: str
+    address: Address
+    phone_number: str
+
+
+@dataclass
 class Details(object):
     """Store sheet details."""
 

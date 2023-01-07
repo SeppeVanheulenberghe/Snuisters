@@ -55,15 +55,15 @@ name_outfile_docx_entry.pack(pady=10)
 ENTRY_BOXES[NAME] = name_outfile_docx_entry
 
 NAME = "DocumentTypeOptionMenu"
-option_menu = customtkinter.CTkOptionMenu(
+document_type_option_menu = customtkinter.CTkOptionMenu(
     master=tabview.tab(DOCUMENT_TAB),
     height=30,
     width=400,
     corner_radius=10,
-    values=["purchase sheet", "invoice"]
+    values=["template", "factuur"]
 )
-option_menu.pack(pady=10)
-option_menu.set("purchase sheet")
+document_type_option_menu.pack(pady=10)
+document_type_option_menu.set("template")
 
 
 # Create Button
@@ -144,6 +144,22 @@ host_phone_number_entry = customtkinter.CTkEntry(
 host_phone_number_entry.pack(pady=10)
 host_phone_number_entry.insert(END, '+32')
 ENTRY_BOXES[NAME] = host_phone_number_entry
+
+host_company_name_label = customtkinter.CTkLabel(
+    master=tabview.tab(INFO_TAB),
+    text="Company Name")
+host_company_name_label.pack(padx=5, anchor=W)
+
+NAME = "HostCompanyName"
+host_company_name_entry = customtkinter.CTkEntry(
+    master=tabview.tab(INFO_TAB),
+    placeholder_text='company name',
+    width=400,
+    height=30,
+    border_width=1,
+    corner_radius=10)
+host_company_name_entry.pack(pady=10)
+ENTRY_BOXES[NAME] = host_company_name_entry
 
 NAME = "TemplateName"
 name_template_entry = customtkinter.CTkEntry(

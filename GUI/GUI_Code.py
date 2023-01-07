@@ -107,6 +107,21 @@ class HostPhoneNumberEntryBoxHandler():
         return self.host_phone_number
 
 
+class HostCompanyNameEntryBoxHandler():
+    """HostCompanyName entry box handler."""
+
+    def read(self, entry_box: customtkinter.CTkEntry) -> str:
+        self.entry_box = entry_box
+        self.host_company_name = entry_box.get()
+
+    def empty(self) -> None:
+        self.entry_box.delete(0, END)
+
+    @property
+    def get(self):
+        return self.host_company_name
+
+
 class TemplateNameEntryBoxHandler():
     """Template name entry box handler."""
 
@@ -122,41 +137,67 @@ class TemplateNameEntryBoxHandler():
         return self.template_name
 
 
+HANDLERS = {"InventoryName": InventoryNameEntryBoxHandler(),
+            "PurchaseSheetName": PurchaseSheetNameEntryBoxHandler(),
+            "HostName": HostNameEntryBoxHandler(),
+            "HostAddressStreet": HostAddressStreetEntryBoxHandler(),
+            "HostAddressCity": HostAddressCityEntryBoxHandler(),
+            "HostPhoneNumber": HostPhoneNumberEntryBoxHandler(),
+            "TemplateName": TemplateNameEntryBoxHandler(),
+            "HostCompanyName": HostCompanyNameEntryBoxHandler()
+            }
+
+
 class GUIController():
     """Controls all elements of the gui. Processes data retrieved from GUI interface"""
-
-    HANDLERS = {"InventoryName": InventoryNameEntryBoxHandler(),
-                "PurchaseSheetName": PurchaseSheetNameEntryBoxHandler(),
-                "HostName": HostNameEntryBoxHandler(),
-                "TemplateName": TemplateNameEntryBoxHandler()
-                }
 
     def __init__(self, ENTRY_BOXES):
         self.ENTRY_BOXES = ENTRY_BOXES
 
     def retrieve_gui_info(self):
         """Retrieve info from gui input elements."""
-        for name, handler in self.HANDLERS.items():
+        for name, handler in HANDLERS.items():
             gui_element = self.ENTRY_BOXES[name]
             handler.read(gui_element)
             handler.empty()
 
+    def retrieve_host_name(self):
+        """Retrieve host name from gui."""
+
+    # def retrieve_host_info_from_gui(self):
+    #     """Retrieve host information from gui input element."""
+
     @property
     def InventoryName(self):
         """Get inventory name."""
-        return self.HANDLERS["InventoryName"].get
+        return HANDLERS["InventoryName"].get
 
     @property
     def PurchaseSheetName(self):
         """Get purchase sheet name."""
-        return self.HANDLERS["PurchaseSheetName"].get
+        return HANDLERS["PurchaseSheetName"].get
 
     @property
     def HostName(self):
         """Get host name."""
-        return self.HANDLERS["HostName"].get
+        return HANDLERS["HostName"].get
+
+    @property
+    def HostAddressStreet(self):
+        """Get street + nr of host address."""
+        return HANDLERS["HostAddressStreet"].get
+
+    @property
+    def HostAddressCity(self):
+        """Get city of host address."""
+        return HANDLERS["HostAddressCity"].get
+
+    @property
+    def HostPhoneNumber(self):
+        """Get host phone number."""
+        return HANDLERS["HostAddressCity"].get
 
     @property
     def TemplateName(self):
         """Get template name."""
-        return self.HANDLERS["TemplateName"].get
+        return HANDLERS["TemplateName"].get
