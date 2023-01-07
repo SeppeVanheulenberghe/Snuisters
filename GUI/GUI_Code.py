@@ -130,7 +130,7 @@ class DocumentTypeOptionMenuHandler():
         self.document_type = option_menu.get()
 
     def empty(self) -> None:
-        self.option_menu.delete(0, END)
+        pass
 
     @property
     def get(self):
@@ -158,8 +158,9 @@ HANDLERS = {"InventoryName": InventoryNameEntryBoxHandler(),
             "HostAddressStreet": HostAddressStreetEntryBoxHandler(),
             "HostAddressCity": HostAddressCityEntryBoxHandler(),
             "HostPhoneNumber": HostPhoneNumberEntryBoxHandler(),
+            "HostCompanyName": HostCompanyNameEntryBoxHandler(),
             "TemplateName": TemplateNameEntryBoxHandler(),
-            "HostCompanyName": HostCompanyNameEntryBoxHandler()
+            "DocumentTypeOptionMenu": DocumentTypeOptionMenuHandler(),
             }
 
 
@@ -210,12 +211,22 @@ class GUIController():
     @property
     def HostPhoneNumber(self):
         """Get host phone number."""
-        return HANDLERS["HostAddressCity"].get
+        return HANDLERS["HostPhoneNumber"].get
 
     @property
     def HostCompanyName(self):
         """Get host company name."""
         return HANDLERS["HostCompanyName"].get
+
+    @property
+    def HostCompanyName(self):
+        """Get host company name."""
+        return HANDLERS["HostCompanyName"].get
+
+    @property
+    def DocumentType(self):
+        """Get document type."""
+        return HANDLERS["DocumentTypeOptionMenu"].get
 
     @property
     def TemplateName(self):

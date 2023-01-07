@@ -19,6 +19,18 @@ def create_document_from_GUI(ENTRY_BOXES: dict[str, customtkinter.CTkEntry]):
     TEMPLATE_NAME = gui.TemplateName
     DETAILS = (HOST_NAME, TEMPLATE_NAME, PURCHASE_SHEET_NAME)
 
+    # testing
+    HOST_ADDRESS_STREET = gui.HostAddressStreet
+    print(HOST_ADDRESS_STREET)
+    HOST_ADDRESS_CITY = gui.HostAddressCity
+    print(HOST_ADDRESS_CITY)
+    HOST_PHONE_NUMBER = gui.HostPhoneNumber
+    print(HOST_PHONE_NUMBER)
+    HOST_COMPANY_NAME = gui.HostCompanyName
+    print(HOST_COMPANY_NAME)
+    DOCUMENT_TYPE = gui.DocumentType
+    print(DOCUMENT_TYPE)
+
     # create inventory
     inventory = Inventory(INVENTORY_NAME)
     inventory.set_details = DETAILS

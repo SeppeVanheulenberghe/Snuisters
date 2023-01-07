@@ -64,7 +64,7 @@ document_type_option_menu = customtkinter.CTkOptionMenu(
 )
 document_type_option_menu.pack(pady=10)
 document_type_option_menu.set("template")
-
+ENTRY_BOXES[NAME] = document_type_option_menu
 
 # Create Button
 # --------------------------------------------
