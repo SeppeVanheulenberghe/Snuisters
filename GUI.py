@@ -9,7 +9,7 @@ customtkinter.set_default_color_theme("dark-blue")
 root = customtkinter.CTk()
 
 root.title('Purchase Sheet Application')
-root.geometry("500x400")
+root.geometry("500x430")
 
 
 ENTRY_BOXES = {}
