@@ -7,12 +7,13 @@ Created on Fri Dec  9 22:47:20 2022.
 
 from docx import Document
 from docx.shared import Cm
+from docx.enum.text import WD_LINE_SPACING
 from typing import List
 from packages.inventory import Inventory
 from abc import ABC, abstractmethod
 
 
-class Purchase_Sheet(ABC):
+class Snuisters_Document(ABC):
     """Responsible for writing the purchase sheets docx."""
 
     def __init__(self, inventory: Inventory):
@@ -93,7 +94,7 @@ class Purchase_Sheet(ABC):
         """Create purchase sheet document."""
 
 
-class Snuisters_Purchase_Sheet(Purchase_Sheet):
+class Snuisters_Purchase_Sheet(Snuisters_Document):
     """Purchase sheet specifically for Snuisters."""
     header_labels: List[str] = ["ARTIKEL", "PRIJS",
                                 "WINSTMARGE", "AANTAL\nONTVANGEN", "AANTAL\nVERKOCHT"]
@@ -115,4 +116,53 @@ class Snuisters_Purchase_Sheet(Purchase_Sheet):
         self.set_table_style(table_style)
         self.doc.save(doc_name + '.docx')
 
-# class Snuisters_Invoice
+
+class Snuisters_Invoice(Snuisters_Document):
+    """Invoice document for Snuisters."""
+
+    def add_host_name_to_details_paragraph(self, details):
+        """Add the host name of the inventory to the Document object"""
+        host = f"{self.inventory_details.host.name}\n"
+        self.add_text_to_paragraph(details, host)
+
+    def add_host_company_name_to_details_paragraph(self, details):
+        """Add the company of the host to details paragraph."""
+        host = f"{self.inventory_details.host.company_name}\n"
+        self.add_text_to_paragraph(details, host)
+
+    def add_host_phone_number_to_details_paragraph(self, details):
+        """Add the phone number of the host to details paragraph."""
+        host = f"{self.inventory_details.host.phone_number}\n"
+        self.add_text_to_paragraph(details, host)
+
+    def add_host_address_street_to_details_paragraph(self, details):
+        """Add the street of the host address to details paragraph."""
+        host = f"{self.inventory_details.host.address.street}\n"
+        self.add_text_to_paragraph(details, host)
+
+    def add_host_address_city_to_details_paragraph(self, details):
+        """Add the city of the host address to details paragraph."""
+        host = f"{self.inventory_details.host.address.city}\n"
+        self.add_text_to_paragraph(details, host)
+
+    def make_details_paragraph(self):
+        """Make new details paragraph specifically for an invoice document."""
+        self.add_heading('AAN:', 1)
+        details = self.add_paragraph()
+        details.paragraph_format.line_spacing_rule = WD_LINE_SPACING.DOUBLE
+        self.add_host_name_to_details_paragraph(details)
+        self.add_host_company_name_to_details_paragraph(details)
+        self.add_host_address_street_to_details_paragraph(details)
+        self.add_host_address_city_to_details_paragraph(details)
+        self.add_host_phone_number_to_details_paragraph(details)
+        # self.add_host_to_details_paragraph(details)
+
+    def create(self, doc_name: str, template_name: str, table_style: str = "Plain Table 1") -> None:
+        """Create invoice document."""
+        # opening new document
+        templates_dir = 'templates/'
+        self.open_doc(templates_dir + template_name + '.docx')
+        # adding details about inventory
+        self.make_details_paragraph()
+        # self.set_table_style(table_style)
+        self.doc.save(doc_name + '.docx')

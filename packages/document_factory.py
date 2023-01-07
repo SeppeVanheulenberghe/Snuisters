@@ -1,6 +1,6 @@
 from typing import Protocol
 from packages.inventory import Inventory
-from packages.purchase_sheet import Snuisters_Purchase_Sheet
+from packages.purchase_sheet import Snuisters_Purchase_Sheet, Snuisters_Invoice
 
 
 class DocumentCreator(Protocol):
@@ -28,15 +28,13 @@ class SnuistersPurchaseSheetCreator():
 class SnuistersInvoiceCreator():
     """Snuisters invoice creation codec"""
     IMAGES_FILEPATH: str = "./images"
-    TEMPLATE_NAME: str = "purchase_sheet_template"
+    TEMPLATE_NAME: str = "invoice_template"
 
     def prepare_document(self, inventory: Inventory) -> None:
-        # self.purchase_sheet = Snuisters_Purchase_Sheet(inventory)
-        pass
+        self.invoice = Snuisters_Invoice(inventory)
 
-    def create_document(self, PURCHASE_SHEET_NAME: str) -> None:
-        # self.purchase_sheet.create(PURCHASE_SHEET_NAME, self.TEMPLATE_NAME)
-        print("Invoice created")
+    def create_document(self, INVOICE_NAME: str) -> None:
+        self.invoice.create(INVOICE_NAME, self.TEMPLATE_NAME)
 
 
 class DocumentCreatorFactory(Protocol):
