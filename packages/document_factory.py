@@ -25,6 +25,20 @@ class SnuistersPurchaseSheetCreator():
         self.purchase_sheet.create(PURCHASE_SHEET_NAME, self.TEMPLATE_NAME)
 
 
+class SnuistersInvoiceCreator():
+    """Snuisters invoice creation codec"""
+    IMAGES_FILEPATH: str = "./images"
+    TEMPLATE_NAME: str = "purchase_sheet_template"
+
+    def prepare_document(self, inventory: Inventory) -> None:
+        # self.purchase_sheet = Snuisters_Purchase_Sheet(inventory)
+        pass
+
+    def create_document(self, PURCHASE_SHEET_NAME: str) -> None:
+        # self.purchase_sheet.create(PURCHASE_SHEET_NAME, self.TEMPLATE_NAME)
+        print("Invoice created")
+
+
 class DocumentCreatorFactory(Protocol):
     """Factory that contains a document codec."""
 
@@ -33,13 +47,21 @@ class DocumentCreatorFactory(Protocol):
 
 
 class SnuistersPurchaseSheetFactory():
-    """Factory aimed at creating a Snuister purchase sheet."""
+    """Factory aimed at creating a Snuisters purchase sheet."""
 
     def get_document_creator(self) -> DocumentCreator:
         return SnuistersPurchaseSheetCreator()
 
 
+class SnuistersInvoiceFactory():
+    """Factory aimed at creating a Snuisters invoice."""
+
+    def get_document_creator(self) -> DocumentCreator:
+        return SnuistersInvoiceCreator()
+
+
 def read_creator(doc_creator: str) -> DocumentCreatorFactory:
     """Return the selected document creator factory."""
-    factories = {"Snuisters Purchase Sheet": SnuistersPurchaseSheetFactory()}
+    factories = {"Snuisters purchase sheet": SnuistersPurchaseSheetFactory(),
+                 "Snuisters invoice": SnuistersInvoiceFactory()}
     return factories[doc_creator]

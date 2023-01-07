@@ -137,21 +137,6 @@ class DocumentTypeOptionMenuHandler():
         return self.document_type
 
 
-class TemplateNameEntryBoxHandler():
-    """Template name entry box handler."""
-
-    def read(self, entry_box: customtkinter.CTkEntry) -> str:
-        self.entry_box = entry_box
-        self.template_name = entry_box.get()
-
-    def empty(self) -> None:
-        pass
-
-    @property
-    def get(self):
-        return self.template_name
-
-
 HANDLERS = {"InventoryName": InventoryNameEntryBoxHandler(),
             "PurchaseSheetName": PurchaseSheetNameEntryBoxHandler(),
             "HostName": HostNameEntryBoxHandler(),
@@ -159,7 +144,6 @@ HANDLERS = {"InventoryName": InventoryNameEntryBoxHandler(),
             "HostAddressCity": HostAddressCityEntryBoxHandler(),
             "HostPhoneNumber": HostPhoneNumberEntryBoxHandler(),
             "HostCompanyName": HostCompanyNameEntryBoxHandler(),
-            # "TemplateName": TemplateNameEntryBoxHandler(),
             "DocumentTypeOptionMenu": DocumentTypeOptionMenuHandler(),
             }
 
@@ -179,9 +163,6 @@ class GUIController():
 
     def retrieve_host_name(self):
         """Retrieve host name from gui."""
-
-    # def retrieve_host_info_from_gui(self):
-    #     """Retrieve host information from gui input element."""
 
     @property
     def InventoryName(self):
@@ -227,8 +208,3 @@ class GUIController():
     def DocumentType(self):
         """Get document type."""
         return HANDLERS["DocumentTypeOptionMenu"].get
-
-    @property
-    def TemplateName(self):
-        """Get template name."""
-        return HANDLERS["TemplateName"].get

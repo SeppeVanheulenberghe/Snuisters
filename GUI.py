@@ -60,10 +60,10 @@ document_type_option_menu = customtkinter.CTkOptionMenu(
     height=30,
     width=400,
     corner_radius=10,
-    values=["template", "factuur"]
+    values=["Snuisters purchase sheet", "Snuisters invoice"]
 )
 document_type_option_menu.pack(pady=10)
-document_type_option_menu.set("template")
+document_type_option_menu.set("Snuisters purchase sheet")
 ENTRY_BOXES[NAME] = document_type_option_menu
 
 # Create Button
@@ -160,18 +160,5 @@ host_company_name_entry = customtkinter.CTkEntry(
     corner_radius=10)
 host_company_name_entry.pack(pady=10)
 ENTRY_BOXES[NAME] = host_company_name_entry
-
-# NAME = "TemplateName"
-# name_template_entry = customtkinter.CTkEntry(
-#     master=tabview.tab(INFO_TAB),
-#     placeholder_text='template file name (.docx)',
-#     width=400,
-#     height=30,
-#     border_width=1,
-#     corner_radius=10)
-# name_template_entry.pack(pady=10)
-# name_template_entry.insert(END, 'template')
-# ENTRY_BOXES[NAME] = name_template_entry
-
 
 root.mainloop()

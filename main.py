@@ -16,27 +16,26 @@ def create_document_from_GUI(ENTRY_BOXES: dict[str, customtkinter.CTkEntry]):
     INVENTORY_NAME = gui.InventoryName
     PURCHASE_SHEET_NAME = gui.PurchaseSheetName
     HOST_NAME = gui.HostName
-    # TEMPLATE_NAME = gui.TemplateName
-    DETAILS = (HOST_NAME, PURCHASE_SHEET_NAME)  # TEMPLATE_NAME
+    DETAILS = (HOST_NAME, PURCHASE_SHEET_NAME)
 
     # testing
     HOST_ADDRESS_STREET = gui.HostAddressStreet
-    print(HOST_ADDRESS_STREET)
+    # print(HOST_ADDRESS_STREET)
     HOST_ADDRESS_CITY = gui.HostAddressCity
-    print(HOST_ADDRESS_CITY)
+    # print(HOST_ADDRESS_CITY)
     HOST_PHONE_NUMBER = gui.HostPhoneNumber
-    print(HOST_PHONE_NUMBER)
+    # print(HOST_PHONE_NUMBER)
     HOST_COMPANY_NAME = gui.HostCompanyName
-    print(HOST_COMPANY_NAME)
+    # print(HOST_COMPANY_NAME)
     DOCUMENT_TYPE = gui.DocumentType
-    print(DOCUMENT_TYPE)
+    # print(DOCUMENT_TYPE)
 
     # create inventory
     inventory = Inventory(INVENTORY_NAME)
     inventory.set_details = DETAILS
 
     # get document factory
-    fac = read_creator("Snuisters Purchase Sheet")
+    fac = read_creator(DOCUMENT_TYPE)
 
     # retrieve document creator
     doc_creator = fac.get_document_creator()

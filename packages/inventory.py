@@ -24,9 +24,6 @@ class InventoryItem(object):
 
     def create_images_list(self) -> list[str]:
         """Make a list of images from images-folder."""
-        # images = [
-        #     im.lower().replace(" ", "") for im in listdir(self.image_folder_filepath)
-        # ]
         images = [
             im for im in listdir(self.image_folder_filepath)
         ]
@@ -69,7 +66,6 @@ class Details(object):
     """Store sheet details."""
 
     host: str
-    # template_name: str
     purchase_sheet_name: str
 
 
@@ -102,8 +98,8 @@ class Inventory(object):
 
     def construct_inventory_details(self, details: tuple) -> Details:
         """Make details object."""
-        host, purchase_sheet_name = details  # template_name
-        return Details(host, purchase_sheet_name)  # template_name
+        host, purchase_sheet_name = details
+        return Details(host, purchase_sheet_name)
 
     def add_inventory_item(self, item: InventoryItem) -> None:
         """Add Inventory_Item to inventory instance variable."""
