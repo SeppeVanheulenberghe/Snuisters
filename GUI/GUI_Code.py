@@ -159,7 +159,7 @@ HANDLERS = {"InventoryName": InventoryNameEntryBoxHandler(),
             "HostAddressCity": HostAddressCityEntryBoxHandler(),
             "HostPhoneNumber": HostPhoneNumberEntryBoxHandler(),
             "HostCompanyName": HostCompanyNameEntryBoxHandler(),
-            "TemplateName": TemplateNameEntryBoxHandler(),
+            # "TemplateName": TemplateNameEntryBoxHandler(),
             "DocumentTypeOptionMenu": DocumentTypeOptionMenuHandler(),
             }
 

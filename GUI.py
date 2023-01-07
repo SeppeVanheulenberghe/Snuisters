@@ -161,17 +161,17 @@ host_company_name_entry = customtkinter.CTkEntry(
 host_company_name_entry.pack(pady=10)
 ENTRY_BOXES[NAME] = host_company_name_entry
 
-NAME = "TemplateName"
-name_template_entry = customtkinter.CTkEntry(
-    master=tabview.tab(INFO_TAB),
-    placeholder_text='template file name (.docx)',
-    width=400,
-    height=30,
-    border_width=1,
-    corner_radius=10)
-name_template_entry.pack(pady=10)
-name_template_entry.insert(END, 'template')
-ENTRY_BOXES[NAME] = name_template_entry
+# NAME = "TemplateName"
+# name_template_entry = customtkinter.CTkEntry(
+#     master=tabview.tab(INFO_TAB),
+#     placeholder_text='template file name (.docx)',
+#     width=400,
+#     height=30,
+#     border_width=1,
+#     corner_radius=10)
+# name_template_entry.pack(pady=10)
+# name_template_entry.insert(END, 'template')
+# ENTRY_BOXES[NAME] = name_template_entry
 
 
 root.mainloop()

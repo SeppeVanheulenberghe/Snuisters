@@ -15,13 +15,14 @@ class DocumentCreator(Protocol):
 
 class SnuistersPurchaseSheetCreator():
     """Snuisters purchase sheet creation codec."""
-    IMAGES_FILEPATH = "./images"
+    IMAGES_FILEPATH: str = "./images"
+    TEMPLATE_NAME: str = "purchase_sheet_template"
 
     def prepare_document(self, inventory: Inventory) -> None:
         self.purchase_sheet = Snuisters_Purchase_Sheet(inventory)
 
-    def create_document(self, PURCHASE_SHEET_NAME: str, TEMPLATE_NAME: str) -> None:
-        self.purchase_sheet.create(PURCHASE_SHEET_NAME, TEMPLATE_NAME)
+    def create_document(self, PURCHASE_SHEET_NAME: str) -> None:
+        self.purchase_sheet.create(PURCHASE_SHEET_NAME, self.TEMPLATE_NAME)
 
 
 class DocumentCreatorFactory(Protocol):

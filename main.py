@@ -16,8 +16,8 @@ def create_document_from_GUI(ENTRY_BOXES: dict[str, customtkinter.CTkEntry]):
     INVENTORY_NAME = gui.InventoryName
     PURCHASE_SHEET_NAME = gui.PurchaseSheetName
     HOST_NAME = gui.HostName
-    TEMPLATE_NAME = gui.TemplateName
-    DETAILS = (HOST_NAME, TEMPLATE_NAME, PURCHASE_SHEET_NAME)
+    # TEMPLATE_NAME = gui.TemplateName
+    DETAILS = (HOST_NAME, PURCHASE_SHEET_NAME)  # TEMPLATE_NAME
 
     # testing
     HOST_ADDRESS_STREET = gui.HostAddressStreet
@@ -45,13 +45,12 @@ def create_document_from_GUI(ENTRY_BOXES: dict[str, customtkinter.CTkEntry]):
     doc_creator.prepare_document(inventory)
 
     # create document
-    doc_creator.create_document(PURCHASE_SHEET_NAME, TEMPLATE_NAME)
+    doc_creator.create_document(PURCHASE_SHEET_NAME)
 
     print(f"""========================================================
     DOCUMENT CREATED: {datetime.now()}
     NAME: {PURCHASE_SHEET_NAME}
     HOST: {HOST_NAME}
     INVENTORY: {INVENTORY_NAME}
-    TEMPLATE: {TEMPLATE_NAME}
 ========================================================
                         """)

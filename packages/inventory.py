@@ -69,7 +69,7 @@ class Details(object):
     """Store sheet details."""
 
     host: str
-    template_name: str
+    # template_name: str
     purchase_sheet_name: str
 
 
@@ -102,8 +102,8 @@ class Inventory(object):
 
     def construct_inventory_details(self, details: tuple) -> Details:
         """Make details object."""
-        host, template_name, purchase_sheet_name = details
-        return Details(host, template_name, purchase_sheet_name)
+        host, purchase_sheet_name = details  # template_name
+        return Details(host, purchase_sheet_name)  # template_name
 
     def add_inventory_item(self, item: InventoryItem) -> None:
         """Add Inventory_Item to inventory instance variable."""
