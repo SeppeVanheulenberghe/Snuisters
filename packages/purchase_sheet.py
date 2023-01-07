@@ -38,7 +38,7 @@ class Purchase_Sheet(ABC):
 
     def add_host_to_details_paragraph(self, details):
         """Add the host of the inventory to the Document object"""
-        host = f"ONTVANGER: {self.inventory_details.host}"
+        host = f"ONTVANGER: {self.inventory_details.host.name}"
         self.add_text_to_paragraph(details, host)
 
     def make_details_paragraph(self):
@@ -114,3 +114,5 @@ class Snuisters_Purchase_Sheet(Purchase_Sheet):
         self.fill_table()
         self.set_table_style(table_style)
         self.doc.save(doc_name + '.docx')
+
+# class Snuisters_Invoice

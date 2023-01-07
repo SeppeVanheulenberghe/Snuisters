@@ -1,6 +1,6 @@
 from tkinter import *
 import customtkinter
-from packages.inventory import Inventory
+from packages.inventory import Inventory, Host, Address
 from packages.document_factory import read_creator
 from GUI.GUI_Code import GUIController
 from datetime import datetime
@@ -16,22 +16,21 @@ def create_document_from_GUI(ENTRY_BOXES: dict[str, customtkinter.CTkEntry]):
     INVENTORY_NAME = gui.InventoryName
     PURCHASE_SHEET_NAME = gui.PurchaseSheetName
     HOST_NAME = gui.HostName
-    DETAILS = (HOST_NAME, PURCHASE_SHEET_NAME)
-
-    # testing
     HOST_ADDRESS_STREET = gui.HostAddressStreet
-    # print(HOST_ADDRESS_STREET)
     HOST_ADDRESS_CITY = gui.HostAddressCity
-    # print(HOST_ADDRESS_CITY)
     HOST_PHONE_NUMBER = gui.HostPhoneNumber
-    # print(HOST_PHONE_NUMBER)
     HOST_COMPANY_NAME = gui.HostCompanyName
-    # print(HOST_COMPANY_NAME)
     DOCUMENT_TYPE = gui.DocumentType
-    # print(DOCUMENT_TYPE)
+
+    # create addres
+    ADDRESS = Address(HOST_ADDRESS_STREET, HOST_ADDRESS_CITY)
+
+    # create host
+    HOST = Host(HOST_NAME, HOST_COMPANY_NAME, ADDRESS, HOST_PHONE_NUMBER)
 
     # create inventory
     inventory = Inventory(INVENTORY_NAME)
+    DETAILS = (HOST, PURCHASE_SHEET_NAME)
     inventory.set_details = DETAILS
 
     # get document factory

@@ -65,7 +65,7 @@ class Host():
 class Details(object):
     """Store sheet details."""
 
-    host: str
+    host: Host
     purchase_sheet_name: str
 
 
@@ -96,7 +96,7 @@ class Inventory(object):
         name, price, profit, number = item_parameters
         return InventoryItem(name, price, profit, number, self.image_folder_filepath)
 
-    def construct_inventory_details(self, details: tuple) -> Details:
+    def construct_inventory_details(self, details: tuple[Host, str]) -> Details:
         """Make details object."""
         host, purchase_sheet_name = details
         return Details(host, purchase_sheet_name)
