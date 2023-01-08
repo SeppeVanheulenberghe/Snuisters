@@ -120,6 +120,11 @@ class Snuisters_Purchase_Sheet(Snuisters_Document):
 class Snuisters_Invoice(Snuisters_Document):
     """Invoice document for Snuisters."""
 
+    header_labels: List[str] = ["ARTIKEL",
+                                "PRIJS",
+                                "AANTAL\nVERKOCHT",
+                                "TOTALE\nVERKOOPPRIJS"]
+
     def add_host_name_to_details_paragraph(self, details):
         """Add the host name of the inventory to the Document object"""
         host = f"{self.inventory_details.host.name}\n"
@@ -157,6 +162,29 @@ class Snuisters_Invoice(Snuisters_Document):
         self.add_host_phone_number_to_details_paragraph(details)
         # self.add_host_to_details_paragraph(details)
 
+    def fill_table(self) -> None:
+        """Fill in table with inventory items."""
+        for i in range(1, len(self.inventory) + 1):
+            name = list(self.inventory_AllItems.keys())[i - 1]
+            item = self.inventory_AllItems[name]
+
+            row = self.table.rows[i].cells
+            row[0].text = item.name
+            paragraph = row[0].paragraphs[0]
+            run = paragraph.add_run()
+            run.add_break()
+            try:
+                run.add_picture(
+                    "./images/" + self.inventory_AllItems[name].image, width=Cm(2))
+                run.add_break()
+
+            except TypeError:
+                row[0].text += "\n\nimage not found\n"
+
+            row[1].text = "€ " + f"{item.price - item.profit:.2f}"
+            row[2].text = f"{item.number_sold:.0f}"
+            row[3].text = "€ " + f"{item.total_price:.2f}"
+
     def create(self, doc_name: str, template_name: str, table_style: str = "Plain Table 1") -> None:
         """Create invoice document."""
         # opening new document
@@ -164,5 +192,11 @@ class Snuisters_Invoice(Snuisters_Document):
         self.open_doc(templates_dir + template_name + '.docx')
         # adding details about inventory
         self.make_details_paragraph()
-        # self.set_table_style(table_style)
+        # make table
+        # making table for inventory items
+        rows, cols = len(self.inventory) + 1, len(self.header_labels)
+        self.make_doc_table(rows, cols)
+        self.fill_table_header(self.header_labels)
+        self.fill_table()
+        self.set_table_style(table_style)
         self.doc.save(doc_name + '.docx')
