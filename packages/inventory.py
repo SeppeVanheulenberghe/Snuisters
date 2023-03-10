@@ -6,6 +6,7 @@ Created on Fri Dec  9 22:01:02 2022.
 """
 
 import pandas as pd
+from numpy import nan
 from dataclasses import dataclass
 from os import listdir
 from typing import Any
@@ -19,14 +20,13 @@ class InventoryItem(object):
     price: float
     profit: float
     number_received: int
+    number_sold: int = None
+    total_price: float = None
     image_folder_filepath: str = "./images"
     image: str = ""
 
     def create_images_list(self) -> list[str]:
         """Make a list of images from images-folder."""
-        # images = [
-        #     im.lower().replace(" ", "") for im in listdir(self.image_folder_filepath)
-        # ]
         images = [
             im for im in listdir(self.image_folder_filepath)
         ]
@@ -47,12 +47,40 @@ class InventoryItem(object):
 
 
 @dataclass
+class Address():
+    """Store Address information."""
+
+    street: str
+    city: str
+
+
+@dataclass
+class Host():
+    """Store information about host."""
+
+    name: str
+    company_name: str
+    address: Address
+    phone_number: str
+
+
+@dataclass
 class Details(object):
     """Store sheet details."""
 
-    host: str
-    template_name: str
+    host: Host
     purchase_sheet_name: str
+
+
+def check_nan_to_zero(value):
+    """Convert a np.nan value to zero."""
+    if value.isnull():
+        return 0
+    return value
+    # try:
+    #     return value
+    # except ValueError:
+    #     return 0
 
 
 class Inventory(object):
@@ -74,18 +102,27 @@ class Inventory(object):
         db_item = inventory_df[inventory_df["Artikel"] == item_name]
         price = float(db_item["Prijs"])
         profit = float(db_item["Winstmarge"])
-        number = int(db_item["Aantal Ontvangen"])
-        return item_name, price, profit, number
+        number_received = int(db_item["Aantal Ontvangen"])
+        test = db_item['Verkocht']
+        number_sold = int(db_item['Verkocht']) #int(db_item['Verkocht'][0]) 
+        total_price = float(db_item['Totale Verkoopprijs'])
+        return item_name, price, profit, number_received, number_sold, total_price
 
     def construct_inventory_item(self, item_parameters: tuple) -> InventoryItem:
         """Make InventoryItem object."""
-        name, price, profit, number = item_parameters
-        return InventoryItem(name, price, profit, number, self.image_folder_filepath)
+        name, price, profit, number_received, number_sold, total_price = item_parameters
+        return InventoryItem(name=name,
+                             price=price,
+                             profit=profit,
+                             number_received=number_received,
+                             number_sold=number_sold,
+                             total_price=total_price,
+                             image_folder_filepath=self.image_folder_filepath)
 
-    def construct_inventory_details(self, details: tuple) -> Details:
+    def construct_inventory_details(self, details: tuple[Host, str]) -> Details:
         """Make details object."""
-        host, template_name, purchase_sheet_name = details
-        return Details(host, template_name, purchase_sheet_name)
+        host, purchase_sheet_name = details
+        return Details(host, purchase_sheet_name)
 
     def add_inventory_item(self, item: InventoryItem) -> None:
         """Add Inventory_Item to inventory instance variable."""
