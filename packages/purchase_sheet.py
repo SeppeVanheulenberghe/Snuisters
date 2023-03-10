@@ -130,7 +130,7 @@ class Snuisters_Purchase_Sheet(Snuisters_Document):
         self.fill_table_header(self.header_labels)
         self.fill_table()
         self.set_table_style(table_style)
-        self.doc.save(doc_name + ".docx")
+        self.doc.save("./documents/" + doc_name + ".docx")
 
 
 class Snuisters_Invoice(Snuisters_Document):
@@ -226,4 +226,4 @@ class Snuisters_Invoice(Snuisters_Document):
         self.fill_table_header(self.header_labels)
         self.fill_table()
         self.set_table_style(table_style)
-        self.doc.save(doc_name + ".docx")
+        self.doc.save("./documents/" + doc_name + ".docx")
