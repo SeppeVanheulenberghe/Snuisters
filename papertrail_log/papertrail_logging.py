@@ -2,11 +2,11 @@ import pandas as pd
 import logging
 from logging.handlers import SysLogHandler
 
-logging_destination_df = pd.read_csv(".\papertrail_log\logging_destination.txt", header=None)
+# logging_destination_df = pd.read_csv(".\papertrail_log\logging_destination.txt", header=None)
 
-PAPERTRAIL_HOST = "logs.papertrailapp.com" #str(logging_destination_df.iloc[0, 0])
+PAPERTRAIL_HOST = "logs.papertrailapp.com"  # str(logging_destination_df.iloc[0, 0])
 
-PAPERTRAIL_PORT = 54829 #int(logging_destination_df.iloc[1, 0])
+PAPERTRAIL_PORT = 54829  # int(logging_destination_df.iloc[1, 0])
 
 
 class LoggingToPapertrail(object):
